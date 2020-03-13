@@ -246,7 +246,7 @@ section.your-active-class .landing__container::after {
 	width: 5rem;
 	border-radius: 15px;
 	border-color: none;
-	margin: 10rem 2rem;
+	margin: 5rem 2rem;
 	box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5);
 	outline: none;
 	cursor: pointer;

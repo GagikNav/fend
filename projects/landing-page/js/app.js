@@ -48,16 +48,16 @@ const goToTop = () => {
 	window.scroll({
 		top: 0,
 		behavior: 'smooth'
-		/* this peace of code smooths the scrolling with css
-	// this function adds a class to the <HTML> tag then scrolls top after that removes class
-	//  in order to smooth scrolling
-	// htmlElement.className = 'smoothScroll';
-	//document.body.scrollTop = 0;
-	// document.documentElement.scrollTop = 0;
-	// htmlElement.classList.remove('smoothScroll');
-	*/
 	});
 };
+/* this pice of code smooths the scrolling with css
+// this function adds a class to the <HTML> tag then scrolls top after that removes class
+//  in order to smooth scrolling
+// htmlElement.className = 'smoothScroll';
+//document.body.scrollTop = 0;
+// document.documentElement.scrollTop = 0;
+// htmlElement.classList.remove('smoothScroll');
+*/
 
 //$ this function adds "li" an "a" correspond to each section
 let addNavbar = () => {
@@ -84,29 +84,93 @@ let addNavbar = () => {
 //$ Function for clicking each navBar Link with a listener of class
 
 function navBarClick() {
-	link = document.querySelectorAll('.menu__link');
-
 	//finding each link for click and listen to it
+	link = document.querySelectorAll('.menu__link');
 	for (let i = 0; i < link.length; i++) {
 		link[i].addEventListener('click', function(e) {
 			e.preventDefault();
 			//defining variable for each section name
 			//? it has a limitation of names to "Section + number" =================> should review again!!!
 			let secnum = i + 1;
-			let sc = document.getElementById('section' + secnum);
+			let sc = document.getElementById(`section${secnum}`);
 
 			//defining scroll to the designated section
-			// And there is a timeout function present for better experience
-			setTimeout(() => {
-				sc.scrollIntoView({
-					block: 'start',
-					behavior: 'smooth'
-				});
-			}, 150);
+			sc.scrollIntoView({
+				block: 'start',
+				behavior: 'smooth'
+			});
 		});
 	}
 }
+// !===================================================================================
+//! Screen observing section
 
+//$ this function returns element position
+function getOffset(el) {
+	const pos = el.getBoundingClientRect();
+	return {
+		left: pos.left + window.scrollX,
+		top: pos.top + window.scrollY,
+		bottom: pos.bottom + window.scrollY,
+		height: pos.height + window.scrollY
+	};
+}
+let = numberOfSections = document.querySelectorAll('section');
+let offsetArrayTop = [];
+let offsetArrayBottom = [];
+let offsetArrayHeight = [];
+for (let i = 0; i < numberOfSections.length; i++) {
+	let sectionElement = document.getElementById(`section${i + 1}`);
+	offsetArrayTop[i] = getOffset(sectionElement).top;
+	offsetArrayBottom[i] = getOffset(sectionElement).bottom;
+	offsetArrayHeight[i] = getOffset(sectionElement).height;
+}
+
+//$ this function changes your-active-class every time correspondent section appears
+const observer = () => {
+	window.addEventListener('scroll', () => {
+		for (let i = 0; i < numberOfSections.length; i++) {
+			if (
+				window.pageYOffset >= offsetArrayTop[i] &&
+				window.pageYOffset + innerHeight / 6 <= offsetArrayBottom[i]
+			) {
+				if (
+					document
+						.getElementById(`section${i + 1}`)
+						.classList.contains('your-active-class')
+				) {
+					console.log(document.getElementById(`section${i + 1}`).id);
+				} else {
+					document
+						.getElementById(`section${i + 1}`)
+						.classList.toggle('your-active-class');
+					document.getElementById(`section${i + 1}`).className =
+						'your-active-class';
+				}
+			} else {
+				document
+					.getElementById(`section${i + 1}`)
+					.classList.remove('your-active-class');
+			}
+		}
+	});
+};
+
+//!============================================================
+//$ This is a Observer API code I rather write my own function
+/*
+var observer = new IntersectionObserver(
+	function(entries) {
+		if (entries[0].isIntersecting === true)
+		console.log('Element is fully visible in screen');
+	},
+	{ threshold: [0.5] }
+	);
+	console.log(entries[0]);
+	
+	observer.observe(document.querySelector('#section3'));
+	*/
+//!============================================================
 /**
  * End Main Functions
  * Begin Events
@@ -123,10 +187,12 @@ navBarClick();
 
 // Set sections as active
 //* Add class 'active' to section when near top of viewport
+observer();
 
 //create Button and on click calls goToTop function
 createButton();
 
+// An event listener to check wether show the button
 window.onscroll = () => {
 	if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
 		document.getElementById('btn').style.display = 'block';
