@@ -29,14 +29,13 @@ let navbar = document.getElementById('navbar__list');
 /* Start Helper Functions
  */
 
-//$ write a function that makes a button witch
+//$ write a function that makes a button which
 //$ on click it will jump to top!
 
 const createButton = () => {
 	// dom element for button
 	let button = document.createElement('button');
 	button.innerHTML = 'Go To Top';
-	button.classList = 'btn';
 	button.id = 'btn';
 	button.setAttribute('onclick', 'goToTop()');
 	document.body.appendChild(button);
@@ -116,6 +115,7 @@ function getOffset(el) {
 	};
 }
 let = numberOfSections = document.querySelectorAll('section');
+let maibHeroHeight = getOffset(document.querySelector('.main__hero')).height;
 let offsetArrayTop = [];
 let offsetArrayBottom = [];
 let offsetArrayHeight = [];
@@ -131,8 +131,9 @@ const observer = () => {
 	window.addEventListener('scroll', () => {
 		for (let i = 0; i < numberOfSections.length; i++) {
 			if (
-				window.pageYOffset >= offsetArrayTop[i] &&
-				window.pageYOffset + innerHeight / 6 <= offsetArrayBottom[i]
+				//// Make 200 px dynamic!!
+				window.pageYOffset + maibHeroHeight / 1 > offsetArrayTop[i] &&
+				window.pageYOffset + innerHeight / 6 < offsetArrayBottom[i]
 			) {
 				if (
 					document

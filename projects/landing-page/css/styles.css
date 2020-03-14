@@ -94,7 +94,7 @@ section {
 
 /* Header Styles */
 .page__header {
-	background: rgba(255, 255, 255, 0.349);
+	background: #aaa;
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -214,6 +214,8 @@ section.your-active-class {
 		rgba(0, 0, 0, 0.1) 0%,
 		rgba(0, 0, 0, 0) 100%
 	);
+	/* border: solid black 1px; */
+	box-shadow: 5px 10px 8px whitesmoke;
 }
 
 section.your-active-class .landing__container::before {
@@ -235,7 +237,7 @@ section.your-active-class .landing__container::after {
 		transform: rotate(360deg) translate(-1em) rotate(-360deg);
 	}
 }
-.btn {
+#btn {
 	display: none;
 	position: fixed;
 	bottom: 0;
