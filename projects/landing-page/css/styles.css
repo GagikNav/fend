@@ -26,13 +26,13 @@ body {
 h1 {
 	font-family: 'Fira Sans', sans-serif;
 	font-size: 3em;
-	margin: 2em 1rem;
+	margin: 5em 2rem 1rem;
 }
 
 @media only screen and (min-width: 35em) {
 	h1 {
 		font-size: 7em;
-		margin: 2em 4rem 1em;
+		margin: 2em 2rem 1em;
 	}
 }
 
@@ -214,7 +214,7 @@ section.your-active-class {
 		rgba(0, 0, 0, 0.1) 0%,
 		rgba(0, 0, 0, 0) 100%
 	);
-	/* border: solid black 1px; */
+
 	box-shadow: 5px 10px 8px whitesmoke;
 }
 

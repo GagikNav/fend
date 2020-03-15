@@ -114,11 +114,13 @@ function getOffset(el) {
 		height: pos.height + window.scrollY
 	};
 }
+
 let = numberOfSections = document.querySelectorAll('section');
-let maibHeroHeight = getOffset(document.querySelector('.main__hero')).height;
+let mainHeroHeight = getOffset(document.querySelector('.main__hero')).height;
 let offsetArrayTop = [];
 let offsetArrayBottom = [];
 let offsetArrayHeight = [];
+
 for (let i = 0; i < numberOfSections.length; i++) {
 	let sectionElement = document.getElementById(`section${i + 1}`);
 	offsetArrayTop[i] = getOffset(sectionElement).top;
@@ -131,8 +133,7 @@ const observer = () => {
 	window.addEventListener('scroll', () => {
 		for (let i = 0; i < numberOfSections.length; i++) {
 			if (
-				//// Make 200 px dynamic!!
-				window.pageYOffset + maibHeroHeight / 1 > offsetArrayTop[i] &&
+				window.pageYOffset + mainHeroHeight / 1 > offsetArrayTop[i] &&
 				window.pageYOffset + innerHeight / 6 < offsetArrayBottom[i]
 			) {
 				if (
@@ -140,7 +141,13 @@ const observer = () => {
 						.getElementById(`section${i + 1}`)
 						.classList.contains('your-active-class')
 				) {
-					console.log(document.getElementById(`section${i + 1}`).id);
+					console.log(
+						document.getElementById(`section${i + 1}`).id,
+						window.pageYOffset,
+						'bottom' + ' ' + offsetArrayBottom[i],
+						'top' + ' ' + offsetArrayTop[i],
+						' ' + mainHeroHeight
+					);
 				} else {
 					document
 						.getElementById(`section${i + 1}`)
