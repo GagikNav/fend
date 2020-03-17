@@ -1,13 +1,22 @@
 # Landing Page Project
 
-## Table of Contents
+This is Udacity Landing Page project.
 
-* [Instructions](#instructions)
+## Introduction
 
-## Instructions
+This project adds links dynamically to the navbar respective to the each section and display it as active section with different styling.
+With clicking on the navbar page scrolls to respective section. Also added some stylings to navbar and sections such as changing color, hide/display navbar also adde some shadow on active section.
+There is a "Button" present after scrolling down for jumping to the top of the page.
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+## Technologies
 
-To get started, open `js/app.js` and start building out the app's functionality
+-Vanilla javascript
+-Css
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+## Table of contents
+
+-[Title](#Landing-Page-Project)
+
+-[Introduction](#Introduction)
+
+-[Technologies](#Technologies)
