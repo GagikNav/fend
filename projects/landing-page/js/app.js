@@ -29,8 +29,7 @@ let navbar = document.getElementById('navbar__list');
 /* Start Helper Functions
  */
 
-//$ write a function that makes a button which
-//$ on click it will jump to top!
+//$ Function to creat Go To Top  Button
 
 const createButton = () => {
 	// dom element for button
@@ -41,7 +40,7 @@ const createButton = () => {
 	document.body.appendChild(button);
 };
 
-//$ this function after clicking the button scrolls to the top
+//$  function for scrolling to the top via the button
 
 const goToTop = () => {
 	window.scroll({
@@ -49,16 +48,15 @@ const goToTop = () => {
 		behavior: 'smooth'
 	});
 };
-/* this pice of code smooths the scrolling with css
-// this function adds a class to the <HTML> tag then scrolls top after that removes class
-//  in order to smooth scrolling
-// htmlElement.className = 'smoothScroll';
-//document.body.scrollTop = 0;
-// document.documentElement.scrollTop = 0;
-// htmlElement.classList.remove('smoothScroll');
-*/
 
-//$ this function adds "li" an "a" correspond to each section
+//$ this function finds the "n-th" list item to select
+
+const findNthLi = n => {
+	return document.querySelector('ul li:nth-child(' + n + ')');
+};
+
+//$ this function adds "li" and "a" correspond to each section in the navbar
+
 let addNavbar = () => {
 	for (let section of sections) {
 		const navbarItems = document.createElement('li');
@@ -70,29 +68,27 @@ let addNavbar = () => {
 		navbar.appendChild(navbarItems);
 		navbarItems.appendChild(navbarLinks);
 	}
+	//$ add class to the first navbar
+
+	findNthLi(1).className = 'navbarActiveClass';
 };
 
 /**
- * End Helper Functions
- *
- *
- * Begin Main Functions
- *
+ * End Helper Functions*/
+
+/* Begin Main Functions
  */
 
 //$ Function for clicking each navBar Link with a listener of class
 
-function navBarClick() {
+const navBarClick = () => {
 	//finding each link for click and listen to it
 	link = document.querySelectorAll('.menu__link');
 	for (let i = 0; i < link.length; i++) {
 		link[i].addEventListener('click', function(e) {
 			e.preventDefault();
 			//defining variable for each section name
-			//? it has a limitation of names to "Section + number" =================> should review again!!!
-			let secnum = i + 1;
-			let sc = document.getElementById(`section${secnum}`);
-
+			let sc = document.getElementById(`section${i + 1}`);
 			//defining scroll to the designated section
 			sc.scrollIntoView({
 				block: 'start',
@@ -100,9 +96,59 @@ function navBarClick() {
 			});
 		});
 	}
-}
+};
+//* An event listener to display / hide both the button and navbar
+
+let scl1 = window.pageYOffset;
+const btnNavbar = () => {
+	window.onscroll = () => {
+		if (
+			document.body.scrollTop > 50 ||
+			document.documentElement.scrollTop > 50
+		) {
+			document.getElementById('btn').style.display = 'block';
+		} else {
+			document.getElementById('btn').style.display = 'none';
+		}
+		let scl2 = window.pageYOffset;
+		if (scl1 > scl2) {
+			document.querySelector('header').style.top = '0';
+		} else {
+			document.querySelector('header').style.top = '-200px';
+		}
+		scl1 = scl2;
+	};
+};
+
+//$An eventListener for hovering mouse on navbar and show / hide it.
+
+const hoverMouse = () => {
+	document
+		.querySelector('.observerDivTop')
+		.addEventListener('mouseover', mouseOver);
+	document
+		.querySelector('.observerDivTop')
+		.addEventListener('mouseover', mouseOver);
+
+	document
+		.querySelector('.observerDivTop')
+		.addEventListener('mouseout', mouseOut);
+
+	function mouseOver() {
+		document.querySelector('header').style.top = '0';
+	}
+
+	// time out has been set to 10 sec after hovering out
+	function mouseOut() {
+		setTimeout(() => {
+			document.querySelector('header').style.top = '-200px';
+		}, 10000);
+	}
+};
 // !===================================================================================
 //! Screen observing section
+//*Tow Div added to the HTML to be index of page observer
+//* and also listening to mouse hover
 
 //$ this function returns element position
 function getOffset(el) {
@@ -114,13 +160,17 @@ function getOffset(el) {
 		height: pos.height + window.scrollY
 	};
 }
-
+//*defining variables regarding page and elements offsets
 let = numberOfSections = document.querySelectorAll('section');
 let mainHeroHeight = getOffset(document.querySelector('.main__hero')).height;
 let offsetArrayTop = [];
 let offsetArrayBottom = [];
 let offsetArrayHeight = [];
+let observerDivTop = document.querySelector('.observerDivTop');
+let observerDivBottom = document.querySelector('.observerDivBottom');
+const header = document.querySelector('header');
 
+//* this loop gets every section's offsets and puts them in a array
 for (let i = 0; i < numberOfSections.length; i++) {
 	let sectionElement = document.getElementById(`section${i + 1}`);
 	offsetArrayTop[i] = getOffset(sectionElement).top;
@@ -128,57 +178,44 @@ for (let i = 0; i < numberOfSections.length; i++) {
 	offsetArrayHeight[i] = getOffset(sectionElement).height;
 }
 
-//$ this function changes your-active-class every time correspondent section appears
+//$ this function changes "your-active-class" every time respective section appears
 const observer = () => {
 	window.addEventListener('scroll', () => {
 		for (let i = 0; i < numberOfSections.length; i++) {
 			if (
-				window.pageYOffset + mainHeroHeight / 1 > offsetArrayTop[i] &&
-				window.pageYOffset + innerHeight / 6 < offsetArrayBottom[i]
+				offsetArrayTop[i] < getOffset(observerDivTop).bottom &&
+				offsetArrayTop[i] > getOffset(observerDivTop).top
 			) {
 				if (
 					document
 						.getElementById(`section${i + 1}`)
 						.classList.contains('your-active-class')
 				) {
-					console.log(
-						document.getElementById(`section${i + 1}`).id,
-						window.pageYOffset,
-						'bottom' + ' ' + offsetArrayBottom[i],
-						'top' + ' ' + offsetArrayTop[i],
-						' ' + mainHeroHeight
-					);
 				} else {
 					document
 						.getElementById(`section${i + 1}`)
 						.classList.toggle('your-active-class');
 					document.getElementById(`section${i + 1}`).className =
 						'your-active-class';
+					findNthLi(i + 1).className = 'navbarActiveClass';
 				}
 			} else {
-				document
-					.getElementById(`section${i + 1}`)
-					.classList.remove('your-active-class');
+				if (
+					(offsetArrayTop[i + 1] < getOffset(observerDivTop).bottom &&
+						offsetArrayTop[i + 1] > getOffset(observerDivTop).top) ||
+					(offsetArrayTop[i] < getOffset(observerDivBottom).bottom &&
+						offsetArrayTop[i] > getOffset(observerDivBottom).top)
+				) {
+					document
+						.getElementById(`section${i + 1}`)
+						.classList.remove('your-active-class');
+					findNthLi(i + 1).classList.remove('navbarActiveClass');
+				}
 			}
 		}
 	});
 };
 
-//!============================================================
-//$ This is a Observer API code I rather write my own function
-/*
-var observer = new IntersectionObserver(
-	function(entries) {
-		if (entries[0].isIntersecting === true)
-		console.log('Element is fully visible in screen');
-	},
-	{ threshold: [0.5] }
-	);
-	console.log(entries[0]);
-	
-	observer.observe(document.querySelector('#section3'));
-	*/
-//!============================================================
 /**
  * End Main Functions
  * Begin Events
@@ -192,6 +229,7 @@ addNavbar();
 // Scroll to anchor ID using scrollTO event
 // Scroll to section on link click
 navBarClick();
+hoverMouse();
 
 // Set sections as active
 //* Add class 'active' to section when near top of viewport
@@ -199,12 +237,4 @@ observer();
 
 //create Button and on click calls goToTop function
 createButton();
-
-// An event listener to check wether show the button
-window.onscroll = () => {
-	if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-		document.getElementById('btn').style.display = 'block';
-	} else {
-		document.getElementById('btn').style.display = 'none';
-	}
-};
+btnNavbar();
