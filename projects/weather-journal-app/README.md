@@ -6,8 +6,8 @@ This project requires you to create an asynchronous web app that uses Web API an
 
 # Bulett points
 
--The API key is temporary one
--You in the zip code you can add Country followed by comma
+- The API key is temporary one
+- In the zip code section you can add Country followed by comma
 (eg. ",us") to change the country
 
 ## Instructions
