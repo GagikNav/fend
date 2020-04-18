@@ -1,35 +1,38 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebPackPlugin = require("html-webpack-plugin")
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const path = require('path');
+const common = require('./webpack.common');
+const merge = require('webpack-merge');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
-module.exports = {
-    entry: './src/client/index.js',
-    mode: 'development',
-    devtool: 'source-map',
-    stats: 'verbose',
-    module: {
-        rules: [
-            {
-                test: '/\.js$/',
-                exclude: /node_modules/,
-                loader: "babel-loader"
-            }
-        ]
-    },
-    plugins: [
-        new HtmlWebPackPlugin({
-            template: "./src/client/views/index.html",
-            filename: "./index.html",
-        }),
-        new CleanWebpackPlugin({
-            // Simulate the removal of files
-            dry: true,
-            // Write Logs to Console
-            verbose: true,
-            // Automatically remove all unused webpack assets on rebuild
-            cleanStaleWebpackAssets: true,
-            protectWebpackAssets: false
-        })
-    ]
-}
+module.exports = merge(common, {
+   module: {
+      rules: [
+         {
+            test: /\.scss$/,
+            use: [
+               'style-loader', //3. Inject styles into DOM
+               'css-loader', //2. Turns css into commonjs
+               'sass-loader', //1. Turns sass into css
+            ],
+         },
+      ],
+   },
+
+   mode: 'development',
+   output: {
+      filename: '[name].bundle.js',
+      path: path.resolve(__dirname, 'dist'),
+   },
+   //
+   plugins: [
+      new HtmlWebPackPlugin({
+         template: './src/client/views/index.html',
+         filename: './index.html',
+      }),
+   ],
+   //
+   devServer: {
+      port: 8000,
+   },
+
+   //
+});
