@@ -1,15 +1,18 @@
 async function handleSubmit(event) {
    event.preventDefault();
    const inputText = document.getElementById('inputText').value;
-   let txt = { inputText };
-   console.log('::: Form Submitted :::');
-   // console.log(txt);  it is working here
-
-   Client.postData('/myPostRoute', txt).then(Client.updateUI());
+   let formInput = { inputText };
+   //validating URL format must begin with http
+   if (Client.urlCheck(inputText)) {
+      //If true sends url from html form to server then updates UI
+      Client.postData('/myPostRoute', formInput).then(Client.updateUI());
+      console.log('::: Form Submitted :::');
+   } else {
+      alert('Please enter a valid URL!!!');
+   }
 }
 
 //************************************************** */
 
 //
-
 export { handleSubmit };

@@ -1,4 +1,5 @@
 //User interface function
+//This function getting data from server and  updates user interface in HTML file
 //
 async function updateUI() {
    // console.log('UI called');
@@ -7,7 +8,7 @@ async function updateUI() {
    try {
       const allData = await request.json();
 
-      console.log(allData, 'alldata');
+      // console.log(allData, 'alldata');
 
       document.getElementById('polarity').innerHTML = `polarity: ` + allData.polarity;
       document.getElementById('subjectivity').innerHTML = `subjectivity: ` + allData.subjectivity;

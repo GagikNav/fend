@@ -21,19 +21,20 @@
     <main>
         <section>
             <form class="" onsubmit=" return Client.handleSubmit(event)">
-                <input id="inputText" type="text" name="input" value="It is a good day" placeholder="Text">
+                <input id="inputText" type="text" name="input" value="www.udacity.com"
+                    placeholder="URL ig: http://www.mywebsite.com">
                 <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)"
                     onsubmit="return Client.handleSubmit(event)">
             </form>
             <section>
 
                 <section>
-                    <strong>Form Results:</strong>
-                    <div id="polarity"></div>
-                    <div id="subjectivity"></div>
-                    <div id="text"></div>
-                    <div id="polarity_confidence"></div>
-                    <div id="subjectivity_confidence"></div>
+                    <strong class="results">Form Results:</strong>
+                    <div class="results" id="polarity"></div>
+                    <div class="results" id="subjectivity"></div>
+                    <div class="results" id="text"></div>
+                    <div class="results" id="polarity_confidence"></div>
+                    <div class="results" id="subjectivity_confidence"></div>
                 </section>
     </main>
 

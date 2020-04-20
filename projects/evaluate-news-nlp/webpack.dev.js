@@ -31,7 +31,10 @@ module.exports = merge(common, {
    ],
    //
    devServer: {
-      port: 8000,
+      port: 3000,
+      compress: true,
+      publicPath: '/',
+      stats: 'errors-only',
    },
 
    //

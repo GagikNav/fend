@@ -35,7 +35,7 @@ app.post('/myPostRoute', (req, res) => {
    console.log('post received', data);
    textapi.sentiment(
       {
-         text: text.inputText,
+         url: text.inputText,
          mode: 'tweet',
       },
       function (error, response) {
@@ -52,5 +52,7 @@ app.post('/myPostRoute', (req, res) => {
 //Get Route
 app.get('/myGetRoute', (req, res) => {
    console.log(`\n\n`, data, `data has been sent\n\n`);
+   // res.sendFile(path.resolve('src/client/views/index.html'));
+   // res.sendFile('dist/index.html');
    res.send(data);
 });

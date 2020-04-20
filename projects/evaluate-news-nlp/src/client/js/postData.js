@@ -1,12 +1,7 @@
-//// function checkForName(inputText) {
-//   //
-// //}
-
 //Post Data to server Function
 //
-console.log('::: Running PostData :::', inputText);
+console.log('::: Running PostData :::');
 async function postData(url, data = {}) {
-   console.log(data, `Post Function`);
    const response = await fetch('/myPostRoute', {
       method: 'POST',
       body: JSON.stringify(data),
@@ -15,7 +10,6 @@ async function postData(url, data = {}) {
 
    try {
       const newData = await response.json();
-      console.log(newData, `Form post`);
       return newData;
    } catch (error) {
       console.error('Error!!', error);

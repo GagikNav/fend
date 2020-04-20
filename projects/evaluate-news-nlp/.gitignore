@@ -4,3 +4,4 @@ dist
 /Notes.txt
 /.prettierrc
 /.prettierignore
+/coverage
