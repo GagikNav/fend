@@ -1,6 +1,5 @@
 const dotenv = require('dotenv');
 dotenv.config();
-const path = require('path');
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -23,7 +22,7 @@ const textapi = new aylien({
    application_key: process.env.API_KEY,
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 30001;
 app.listen(port, () => {
    console.log(`Listening on localhost port ${port}........\n\n`);
 });
@@ -32,7 +31,7 @@ app.listen(port, () => {
 //Post Route
 app.post('/myPostRoute', (req, res) => {
    text = req.body;
-   console.log('post received', data);
+   // console.log('post received', data);
    textapi.sentiment(
       {
          url: text.inputText,
@@ -51,7 +50,7 @@ app.post('/myPostRoute', (req, res) => {
 //
 //Get Route
 app.get('/myGetRoute', (req, res) => {
-   console.log(`\n\n`, data, `data has been sent\n\n`);
+   // console.log(`\n\n`, data, `data has been sent\n\n`);
    // res.sendFile(path.resolve('src/client/views/index.html'));
    // res.sendFile('dist/index.html');
    res.send(data);

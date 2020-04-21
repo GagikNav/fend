@@ -7,6 +7,9 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+
+//*****************************************************
+
 module.exports = merge(common, {
    mode: 'production',
    //
@@ -18,7 +21,9 @@ module.exports = merge(common, {
    optimization: {
       minimizer: [
          new OptimizeCssAssetsPlugin(),
-         new TerserPlugin(),
+         new TerserPlugin({
+            //   exclude: '/dist/service-worker.js',
+         }),
          new HtmlWebPackPlugin({
             template: './src/client/views/index.html',
             filename: './index.html',
@@ -31,7 +36,15 @@ module.exports = merge(common, {
       ],
    },
    //
-   plugins: [new MiniCssExtractPlugin({ filename: '[name].[contentHash].css' }), new CleanWebpackPlugin()],
+   plugins: [
+      new WorkboxPlugin.GenerateSW({
+         swDest: './dist/service-worker.js',
+      }),
+
+      new MiniCssExtractPlugin({ filename: '[name].[contentHash].css' }),
+      new CleanWebpackPlugin(),
+   ],
+   //
    module: {
       rules: [
          {
