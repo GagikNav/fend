@@ -7,7 +7,11 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
+// const workbox = require('workbox');
+// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+// const ServiceWorkerPlugin = require('service-worker-plugin');
 //*****************************************************
 
 module.exports = merge(common, {
@@ -37,12 +41,15 @@ module.exports = merge(common, {
    },
    //
    plugins: [
-      new WorkboxPlugin.GenerateSW({
-         swDest: './dist/service-worker.js',
-      }),
-
+      new WorkboxPlugin.GenerateSW(require('./workbox-config')),
       new MiniCssExtractPlugin({ filename: '[name].[contentHash].css' }),
       new CleanWebpackPlugin(),
+      new WebpackPwaManifest({
+         name: 'Webpack Config',
+         short_name: 'WpConfig',
+         description: 'Example Webpack Config',
+         background_color: '#ffffff',
+      }),
    ],
    //
    module: {
