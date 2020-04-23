@@ -39,8 +39,8 @@ app.post('/myPostRoute', (req, res) => {
       },
       function (error, response) {
          if (error === null) {
+            console.log(response);
             data = response;
-            console.log(data, 'API res!!');
          } else {
             console.log(error);
          }

@@ -4,7 +4,7 @@
 async function updateUI() {
    // console.log('UI called');
    console.log('::: Running UI function :::');
-   const request = await fetch('/myGetRoute');
+   const request = await fetch(`http://localhost:30001/myGetRoute`);
    try {
       const allData = await request.json();
 

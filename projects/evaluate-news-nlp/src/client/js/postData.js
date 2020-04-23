@@ -2,7 +2,7 @@
 //
 console.log('::: Running PostData :::');
 async function postData(url, data = {}) {
-   const response = await fetch('/myPostRoute', {
+   const response = await fetch(`http://localhost:30001/myPostRoute`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json' },
