@@ -40,6 +40,7 @@ app.post('/myPostRoute', (req, res) => {
       function (error, response) {
          if (error === null) {
             console.log(response);
+            res.send(response);
             data = response;
          } else {
             console.log(error);
